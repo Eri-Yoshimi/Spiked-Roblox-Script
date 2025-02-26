@@ -1,6 +1,8 @@
 -- Settings -----------------------------------------------------------------------------------------------------
-local toggleKey = Enum.KeyCode.P
+local toggleKey = Enum.KeyCode.RightBracket
 local shutdownKey = nil
+local minESPsize = 2
+local lazerWidth = 0.05
 -----------------------------------------------------------------------------------------------------------------
 
 -- Actuall code down here!!! ------------------------------------------------------------------------------------
@@ -102,6 +104,10 @@ local diveLenghtSlider = values:AddSlider("Dive length", 1, 50)
 diveLenghtSlider.OnValueChanged:Connect(function(value)
 	plr:SetAttribute("DIVELENGTH", value)
 end)
+local floatSlider = values:AddSlider("Floatiness length", 1, 83.34)
+floatSlider.OnValueChanged:Connect(function(value)
+	plr:SetAttribute("FLOATINESS", value)
+end)
 
 local remotes = window:createNewModule("Remotes")
 
@@ -113,19 +119,18 @@ RunService.Heartbeat:Connect(function()
 	end
 end)
 
-local spikingToggle, spikingToggled = remotes:AddToggle("Constantly Spike (INSTANT/OP)")
+local OPspikingToggle, OPspikingToggled = remotes:AddToggle("Constantly Spike (INSTANT/OP)")
 local spikeEvent = game:GetService("ReplicatedStorage").Mechanics.Spike
 RunService.Heartbeat:Connect(function()
-	if spikingToggled:GetState() then
+	if OPspikingToggled:GetState() then
 		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector * 10, 99999999999, "SPIKE")
 	end
 end)
-
 -----------------------------------------------------------------------------------------------------------------
 
 -- Credit Notification ------------------------------------------------------------------------------------------
 CoreGui:SetCore("SendNotification", {
-	Title = "Spiked Cheat Injected";
+	Title = "No Big Deal Cheat Injected";
 	Text = "Made by Eri";
 	Duration = 5;
 })
