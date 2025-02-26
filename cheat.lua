@@ -107,6 +107,14 @@ floatSlider.OnValueChanged:Connect(function(value)
 	plr:SetAttribute("FLOATINESS", value)
 end)
 
+local hipHeightToggle, hipHeightToggled = values:AddToggle("Hip Height Increase/Float")
+hipHeightToggle.Activated:Connect(function()
+	local hum = plr.Character:FindFirstChild("Humanoid")
+	if hum then
+		hum.HipHeight = hipHeightToggled:GetState() and 12 or 0
+	end
+end)
+
 local remotes = window:createNewModule("Remotes")
 
 local spikingToggle, spikingToggled = remotes:AddToggle("Constantly Spike")
@@ -122,6 +130,32 @@ local spikeEvent = game:GetService("ReplicatedStorage").Mechanics.Spike
 RunService.Heartbeat:Connect(function()
 	if OPspikingToggled:GetState() then
 		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector * 10, 99999999999, "SPIKE")
+	end
+end)
+
+local misc = window:createNewModule("Misc")
+local removeZones = misc:AddButton("Remove Court Zones")
+removeZones.Activated:Connect(function()
+	local courtA = workspace:FindFirstChild("COURT_A")
+	if courtA then
+		pcall(function()
+			local t1Z = courtA:FindFirstChild("TEAM_1"):FindFirstChild("ZONE")
+			if t1Z then
+				t1Z:Destroy()
+			end
+		end)
+		pcall(function()
+			local t2Z = courtA:FindFirstChild("TEAM_2"):FindFirstChild("ZONE")
+			if t2Z then
+				t2Z:Destroy()
+			end
+		end)
+		pcall(function()
+			local walls = courtA:FindFirstChild("WALLS")
+			if walls then
+				walls:Destroy()
+			end
+		end)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------
