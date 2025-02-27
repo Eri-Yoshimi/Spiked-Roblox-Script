@@ -1,5 +1,5 @@
 -- Settings -----------------------------------------------------------------------------------------------------
-local toggleKey = Enum.KeyCode.RightBracket
+local toggleKey = Enum.KeyCode.P
 local shutdownKey = nil
 -----------------------------------------------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ local spikingToggle, spikingToggled = remotes:AddToggle("Constantly Spike")
 local spikeEvent = game:GetService("ReplicatedStorage").Mechanics.Spike
 RunService.Heartbeat:Connect(function()
 	if spikingToggled:GetState() then
-		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector, 99999999999, "SPIKE")
+		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector, 100, "SPIKE")
 	end
 end)
 
@@ -129,7 +129,7 @@ local OPspikingToggle, OPspikingToggled = remotes:AddToggle("Constantly Spike (I
 local spikeEvent = game:GetService("ReplicatedStorage").Mechanics.Spike
 RunService.Heartbeat:Connect(function()
 	if OPspikingToggled:GetState() then
-		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector * 10, 99999999999, "SPIKE")
+		spikeEvent:FireServer(plr:GetMouse().Hit.LookVector * 10, 100, "SPIKE")
 	end
 end)
 
